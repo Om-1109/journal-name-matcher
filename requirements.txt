@@ -1,0 +1,17 @@
+# Core
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Text handling / normalization (safe, lightweight)
+rapidfuzz>=3.5.0
+
+# Config & CLI safety
+python-dotenv>=1.0.0
+
+# Validation & typing (future-proofing)
+pydantic>=2.5.0
+typing-extensions>=4.9.0
+
+# Testing (shared)
+pytest>=7.4.0
+pytest-cov>=4.1.0
