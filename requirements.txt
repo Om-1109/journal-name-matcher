@@ -7,6 +7,7 @@ rapidfuzz>=3.5.0
 
 # Config & CLI safety
 python-dotenv>=1.0.0
+PyYAML>=6.0
 
 # Validation & typing (future-proofing)
 pydantic>=2.5.0
