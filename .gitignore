@@ -1,63 +1,22 @@
-# =====================
-# Python
-# =====================
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.pyc
 
-# =====================
-# Virtual environments
-# =====================
 .venv/
 venv/
 env/
 
-# =====================
-# Environment variables
-# =====================
 .env
 .env.*
 
-# =====================
-# IDEs & Editors
-# =====================
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# =====================
-# OS files
-# =====================
 .DS_Store
 Thumbs.db
 
-# =====================
-# Logs & runtime
-# =====================
-logs/
-*.log
-
-# =====================
-# Test artifacts
-# =====================
 .coverage
 htmlcov/
 .pytest_cache/
-
-# =====================
-# Model / experiment artifacts (future-safe)
-# =====================
-models/
-checkpoints/
-artifacts/
-experiments/
-
-# =====================
-# Build artifacts
-# =====================
-build/
-dist/
-*.egg-info/
