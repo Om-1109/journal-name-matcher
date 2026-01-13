@@ -1,27 +1,19 @@
-from typing import Dict
-from .normalize import normalize_title
+from src.detection.normalize import normalize_title
 
-TITLE_COLUMN = "article_title"  # ✅ corrected column name
 
-def exact_and_normalized_match(input_title: str, dataset) -> Dict:
-    """
-    Performs exact and normalized matching against the dataset.
-    """
+def exact_match(title: str, df):
+    if not title:
+        return []
 
-    # Exact raw match
-    raw_matches = dataset[dataset[TITLE_COLUMN] == input_title]
+    return df[df["article_title"] == title]["article_title"].tolist()
 
-    # Normalized match
-    normalized_input = normalize_title(input_title)
-    dataset["_normalized"] = dataset[TITLE_COLUMN].apply(normalize_title)
 
-    normalized_matches = dataset[
-        dataset["_normalized"] == normalized_input
-    ]
+def normalized_match(title: str, df):
+    if not title:
+        return []
 
-    return {
-        "exact_match": not raw_matches.empty,
-        "normalized_match": not normalized_matches.empty,
-        "exact_matches": raw_matches[TITLE_COLUMN].tolist(),
-        "normalized_matches": normalized_matches[TITLE_COLUMN].tolist()
-    }
+    normalized_input = normalize_title(title)
+
+    df["_normalized"] = df["article_title"].apply(normalize_title)
+
+    return df[df["_normalized"] == normalized_input]["article_title"].tolist()

@@ -1,34 +1,42 @@
 from sentence_transformers import SentenceTransformer
-from .similarity_utils import cosine_similarity
 
-TITLE_COLUMN = "article_title"  # ✅ corrected column name
+from src.detection.similarity_utils import cosine_similarity
+from src.detection.overlap_similarity import compute_overlap_score
+
 
 class SemanticMatcher:
-    """
-    Semantic matcher using sentence embeddings + cosine similarity.
-    """
-
-    def __init__(self, model_name="all-MiniLM-L6-v2", threshold=0.80):
+    def __init__(self, model_name="all-MiniLM-L6-v2", threshold=0.4):
         self.model = SentenceTransformer(model_name)
         self.threshold = threshold
 
-    def find_similar(self, input_title: str, dataset):
-        """
-        Returns semantically similar article titles with similarity scores.
-        """
-        input_embedding = self.model.encode(input_title)
+    def find_similar(self, query: str, df):
+        if not query or df is None or df.empty:
+            return []
+
+        titles = df["article_title"].dropna().astype(str).tolist()
+
+        query_embedding = self.model.encode(query)
+        corpus_embeddings = self.model.encode(titles)
 
         results = []
 
-        for title in dataset[TITLE_COLUMN]:
-            title_embedding = self.model.encode(title)
-            score = cosine_similarity(input_embedding, title_embedding)
+        for idx, title in enumerate(titles):
+            semantic_score = cosine_similarity(
+                query_embedding,
+                corpus_embeddings[idx]
+            )
 
-            if score >= self.threshold:
-                results.append({
-                    "article_title": title,
-                    "similarity_score": round(score, 3)
-                })
+            if semantic_score < self.threshold:
+                continue
 
-        results.sort(key=lambda x: x["similarity_score"], reverse=True)
+            overlap = compute_overlap_score(query, title)
+
+            results.append({
+                "article_title": title,
+                "semantic_score": round(semantic_score, 4),
+                "token_overlap": overlap["token_overlap"],
+                "bigram_overlap": overlap["bigram_overlap"],
+                "overlap_score": overlap["overlap_score"],
+            })
+
         return results
