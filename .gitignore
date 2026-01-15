@@ -20,6 +20,4 @@ Thumbs.db
 .coverage
 htmlcov/
 .pytest_cache/
-#Runtime outputs
-outputs/
-results.json
+ 
