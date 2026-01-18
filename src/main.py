@@ -1,19 +1,32 @@
-import sys
 import pandas as pd
+from pathlib import Path
 
 from src.core.pipeline import run_pipeline
 from src.phase2.abstract_pipeline import run_phase2
 
 
-DATA_PATH = "/Users/dhruvgourisaria/JournalProject/journal-name-matcher/journal-name-matcher/data/master_journals.csv"
+# -------------------------------
+# Resolve project root safely
+# -------------------------------
+BASE_DIR = Path(__file__).resolve().parents[1]
+DATA_PATH = BASE_DIR / "data" / "master_journals.csv"
 
 
 def read_multiline_input():
-    print("(Paste abstract. Press Ctrl+D to finish)\n")
-    return sys.stdin.read().strip()
+    print("(Paste abstract. Type END on a new line to finish)\n")
+    lines = []
+    while True:
+        line = input()
+        if line.strip() == "END":
+            break
+        lines.append(line)
+    return "\n".join(lines)
 
 
 def main():
+    if not DATA_PATH.exists():
+        raise FileNotFoundError(f"Missing file: {DATA_PATH}")
+
     df = pd.read_csv(DATA_PATH)
 
     while True:
@@ -23,20 +36,25 @@ def main():
             print("Error: Title cannot be empty.")
             continue
 
+        # Phase 1
         phase1 = run_pipeline(title)
-        journal_predictions = phase1["journal_predictions"]
+        journal_predictions = phase1.get("journal_predictions", [])
 
-        # Strong match → stop
-        if journal_predictions and journal_predictions[0]["confidence"].startswith("Strong"):
+        if (
+            journal_predictions
+            and journal_predictions[0]
+            .get("confidence", "")
+            .startswith("Strong")
+        ):
             print("\nA journal with a very similar scope already exists.")
             print("Please enter a NEW article title.\n")
             continue
 
-        # Phase 2 required
+        # Phase 2
         print("\nPhase 2 required. Please enter article abstract:\n")
         user_abstract = read_multiline_input()
 
-        if not user_abstract:
+        if not user_abstract.strip():
             print("Error: Abstract cannot be empty.")
             continue
 
@@ -47,7 +65,7 @@ def main():
         )
 
         print("\nFINAL DECISION:")
-        print(phase2["final_decision"])
+        print(phase2.get("final_decision", "No decision returned"))
         break
 
 

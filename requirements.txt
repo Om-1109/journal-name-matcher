@@ -5,11 +5,3 @@ sentence-transformers>=2.6.0
 torch
 scikit-learn
 python-dotenv>=1.0.0
-__pycache__/
-*.pyc
-
-.env
-data/abstract_semantics_cache.json
-
-outputs/
-results.json

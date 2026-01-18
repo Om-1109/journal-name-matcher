@@ -1,17 +1,17 @@
-from typing import List, Dict, Any
+def make_final_decision(journal_predictions):
+    """
+    Convert similarity scores into human-readable decision.
+    Tuned for research-domain abstracts.
+    """
 
+    if not journal_predictions:
+        return "Journal is novel"
 
-def make_final_decision(journals):
-    if not journals:
-        return "Novel journal"
+    top_score = journal_predictions[0].get("score", 0.0)
 
-    max_similarity = journals[0]["avg_similarity"]
-
-    if max_similarity >= 0.75:
-        verdict = "Journal already exists"
-    elif max_similarity >= 0.45:
-        verdict = "Journal is redundant"
+    if top_score >= 0.6:
+        return "Journal likely exists"
+    elif top_score >= 0.35:
+        return "Journal possibly exists"
     else:
-        verdict = "Journal is novel"
-
-    return verdict
+        return "Journal is likely novel"

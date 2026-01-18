@@ -12,17 +12,39 @@ from src.phase2.final_decision import make_final_decision
 # -----------------------------
 SEMANTIC_CACHE: Dict[str, Dict] = {}
 
+# HARD SAFETY LIMIT (CRITICAL)
+MAX_PHASE2_ARTICLES = 5
+
+
+def _empty_semantics() -> Dict:
+    """Default safe semantics structure."""
+    return {
+        "domain": "",
+        "techniques": [],
+        "keywords": [],
+    }
+
 
 def get_cached_semantics(abstract: str) -> Dict:
     """
-    Extracts structured semantics with caching to avoid repeated LLM calls.
+    Extracts structured semantics with caching.
+    Always returns a safe dictionary.
     """
     abstract = abstract.strip()
     if not abstract:
-        return {"domain": "", "techniques": [], "keywords": []}
+        return _empty_semantics()
 
     if abstract not in SEMANTIC_CACHE:
-        SEMANTIC_CACHE[abstract] = extract_semantics_from_abstract(abstract)
+        semantics = extract_semantics_from_abstract(abstract)
+
+        if not isinstance(semantics, dict):
+            semantics = _empty_semantics()
+        else:
+            semantics.setdefault("domain", "")
+            semantics.setdefault("techniques", [])
+            semantics.setdefault("keywords", [])
+
+        SEMANTIC_CACHE[abstract] = semantics
 
     return SEMANTIC_CACHE[abstract]
 
@@ -34,24 +56,46 @@ def run_phase2(
 ) -> dict:
     """
     Phase 2 pipeline using structured abstract comparison.
+    GUARANTEED to terminate.
     """
 
     # -----------------------------
     # USER SEMANTICS
     # -----------------------------
+    print("\n[Phase 2] Extracting semantics from user abstract (LLM call)…")
     user_semantics = get_cached_semantics(user_abstract)
 
     article_results = []
 
     # Only evaluate journals shortlisted in Phase 1
-    allowed_journals = {j["journal_name"] for j in candidate_journals}
+    allowed_journals = {
+        j.get("journal_name", "").strip()
+        for j in candidate_journals
+    }
+
+    if not allowed_journals:
+        return {
+            "user_semantics": user_semantics,
+            "journal_predictions": [],
+            "final_decision": "NO CANDIDATE JOURNALS AFTER PHASE 1",
+        }
+
+    print(
+        f"[Phase 2] Comparing against {len(allowed_journals)} candidate journals "
+        f"(max {MAX_PHASE2_ARTICLES} abstracts)…"
+    )
 
     # -----------------------------
-    # DATASET LOOP
+    # DATASET LOOP (LIMITED)
     # -----------------------------
+    processed = 0
+
     for _, row in df.iterrows():
 
-        journal_name = row.get("journal_name", "").strip()
+        if processed >= MAX_PHASE2_ARTICLES:
+            break
+
+        journal_name = str(row.get("journal_name", "")).strip()
         abstract = str(row.get("abstract", "")).strip()
 
         if not journal_name or journal_name not in allowed_journals:
@@ -59,6 +103,8 @@ def run_phase2(
 
         if not abstract:
             continue
+
+        print(f"[Phase 2] Processing abstract {processed + 1}/{MAX_PHASE2_ARTICLES}")
 
         dataset_semantics = get_cached_semantics(abstract)
 
@@ -71,6 +117,15 @@ def run_phase2(
             "journal_name": journal_name,
             "similarity": similarity,
         })
+
+        processed += 1
+
+    if not article_results:
+        return {
+            "user_semantics": user_semantics,
+            "journal_predictions": [],
+            "final_decision": "NO MATCHING ABSTRACTS FOUND FOR PHASE 2",
+        }
 
     # -----------------------------
     # AGGREGATION + DECISION
