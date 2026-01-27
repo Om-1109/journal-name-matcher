@@ -15,3 +15,16 @@ def make_final_decision(journal_predictions):
         return "Journal possibly exists"
     else:
         return "Journal is likely novel"
+def make_final_decision(journals):
+    if not journals:
+        return "Journal is novel"
+
+    score = journals[0]["max_similarity"]
+
+    if score >= 0.60:
+        return "Journal already exists"
+    elif score >= 0.35:
+        return "Journal likely exists"
+    else:
+        return "Journal is novel"
+        

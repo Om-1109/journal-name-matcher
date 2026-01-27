@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-01-11T11:55:20.377729",
+  "query": {
+    "input_title": "Using spanners to improve network performance",
+    "normalized_title": "using spanners to improve network performance"
+  },
+  "exact_match": true,
+  "normalized_match": true,
+  "exact_matches": [
+    "Using spanners to improve network performance"
+  ],
+  "normalized_matches": [
+    "Using spanners to improve network performance"
+  ],
+  "semantic_matches": [
+    {
+      "article_title": "Using spanners to improve network performance",
+      "semantic_score": 1.0,
+      "token_overlap": 1.0,
+      "bigram_overlap": 1.0,
+      "overlap_score": 1.0,
+      "semantic_weight": 0.5,
+      "overlap_weight": 0.5,
+      "hybrid_score": 1.0,
+      "confidence": "Strong match"
+    },
+    {
+      "article_title": "Enabling efficient collection and usage of network performance metrics at the edge",
+      "semantic_score": 0.5247,
+      "token_overlap": 0.125,
+      "bigram_overlap": 0.0,
+      "overlap_score": 0.075,
+      "semantic_weight": 0.8,
+      "overlap_weight": 0.2,
+      "hybrid_score": 0.4348,
+      "confidence": "Weak match"
+    },
+    {
+      "article_title": "GNNetSlice: A GNN-based performance model to support network slicing in B5G networks",
+      "semantic_score": 0.4704,
+      "token_overlap": 0.2,
+      "bigram_overlap": 0.0,
+      "overlap_score": 0.12,
+      "semantic_weight": 0.8,
+      "overlap_weight": 0.2,
+      "hybrid_score": 0.4003,
+      "confidence": "Weak match"
+    },
+    {
+      "article_title": "Enhancing network performance in structured geometric network topologies: strategies for quality-of-service optimisation",
+      "semantic_score": 0.4737,
+      "token_overlap": 0.13333333333333333,
+      "bigram_overlap": 0.0,
+      "overlap_score": 0.08,
+      "semantic_weight": 0.8,
+      "overlap_weight": 0.2,
+      "hybrid_score": 0.395,
+      "confidence": "Weak match"
+    },
+    {
+      "article_title": "P4+NFV: Optimal offloading from P4 switches to NFV for diverse traffic streams",
+      "semantic_score": 0.4129,
+      "token_overlap": 0.058823529411764705,
+      "bigram_overlap": 0.0,
+      "overlap_score": 0.03529411764705882,
+      "semantic_weight": 0.8,
+      "overlap_weight": 0.2,
+      "hybrid_score": 0.3374,
+      "confidence": "Low relevance"
+    }
+  ],
+  "journal_predictions": [
+    {
+      "journal_name": "Computer Networks",
+      "article_matches": 4,
+      "avg_hybrid_score": 0.5418,
+      "max_hybrid_score": 1.0,
+      "confidence": "Strong journal match"
+    },
+    {
+      "journal_name": "Computer Communications",
+      "article_matches": 1,
+      "avg_hybrid_score": 0.4003,
+      "max_hybrid_score": 0.4003,
+      "confidence": "Weak journal match"
+    }
+  ]
+}

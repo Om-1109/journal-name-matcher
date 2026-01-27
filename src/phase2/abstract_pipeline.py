@@ -1,16 +1,12 @@
 import pandas as pd
-from typing import Dict, List
+from typing import List
 
 from src.phase2.abstract_extractor import extract_semantics_from_abstract
 from src.phase2.semantic_similarity import compute_structured_similarity
 from src.phase2.abstract_aggregation import aggregate_abstract_results
 from src.phase2.final_decision import make_final_decision
 
-
-# -----------------------------
-# GLOBAL CACHE (IMPORTANT)
-# -----------------------------
-SEMANTIC_CACHE: Dict[str, Dict] = {}
+MAX_DATASET_ROWS = 1352
 
 # HARD SAFETY LIMIT (CRITICAL)
 MAX_PHASE2_ARTICLES = 5
@@ -65,6 +61,7 @@ def run_phase2(
     print("\n[Phase 2] Extracting semantics from user abstract (LLM call)…")
     user_semantics = get_cached_semantics(user_abstract)
 
+    allowed = {j["journal_name"] for j in candidate_journals}
     article_results = []
 
     # Only evaluate journals shortlisted in Phase 1
@@ -101,8 +98,11 @@ def run_phase2(
         if not journal_name or journal_name not in allowed_journals:
             continue
 
-        if not abstract:
-            continue
+        dataset_semantics = {
+            "domain": str(row.get("domain", "")).lower().strip(),
+            "techniques": _norm(row.get("techniques")),
+            "keywords": _norm(row.get("keywords")),
+        }
 
         print(f"[Phase 2] Processing abstract {processed + 1}/{MAX_PHASE2_ARTICLES}")
 
@@ -114,8 +114,8 @@ def run_phase2(
         )
 
         article_results.append({
-            "journal_name": journal_name,
-            "similarity": similarity,
+            "journal_name": journal,
+            "similarity": similarity
         })
 
         processed += 1
@@ -131,7 +131,6 @@ def run_phase2(
     # AGGREGATION + DECISION
     # -----------------------------
     journal_predictions = aggregate_abstract_results(article_results)
-    final_decision = make_final_decision(journal_predictions)
 
     return {
         "user_semantics": user_semantics,

@@ -1,24 +1,24 @@
 from collections import defaultdict
 
 
-def aggregate_abstract_results(article_results):
-    journal_map = defaultdict(list)
+def aggregate_abstract_results(results):
+    journal_scores = {}
 
-    for r in article_results:
-        journal_map[r["journal_name"]].append(r["similarity"])
+    for r in results:
+        j = r["journal_name"]
+        score = r["similarity"]
 
-    aggregated = []
+        if j not in journal_scores:
+            journal_scores[j] = score
+        else:
+            journal_scores[j] = max(journal_scores[j], score)
 
-    for journal, scores in journal_map.items():
-        aggregated.append({
-            "journal_name": journal,
-            "avg_similarity": round(sum(scores) / len(scores), 3),
-            "max_similarity": round(max(scores), 3),
-            "article_matches": len(scores),
-        })
+    aggregated = [
+        {
+            "journal_name": j,
+            "max_similarity": round(score, 3)
+        }
+        for j, score in journal_scores.items()
+    ]
 
-    return sorted(
-        aggregated,
-        key=lambda x: x["avg_similarity"],
-        reverse=True
-    )
+    return sorted(aggregated, key=lambda x: x["max_similarity"], reverse=True)

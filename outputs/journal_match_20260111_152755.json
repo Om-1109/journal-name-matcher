@@ -1,0 +1,81 @@
+{
+  "exact_match": true,
+  "normalized_match": true,
+  "exact_matches": [
+    "Using spanners to improve network performance"
+  ],
+  "normalized_matches": [
+    "Using spanners to improve network performance"
+  ],
+  "semantic_matches": [
+    {
+      "article_title": "Using spanners to improve network performance",
+      "semantic_score": 1.0,
+      "token_overlap": 1.0,
+      "bigram_overlap": 1.0,
+      "overlap_score": 1.0,
+      "semantic_weight": 0.65,
+      "overlap_weight": 0.35,
+      "hybrid_score": 1.0,
+      "confidence": "Strong match"
+    },
+    {
+      "article_title": "Enabling efficient collection and usage of network performance metrics at the edge",
+      "semantic_score": 0.5247,
+      "token_overlap": 0.125,
+      "bigram_overlap": 0.0,
+      "overlap_score": 0.075,
+      "semantic_weight": 0.65,
+      "overlap_weight": 0.35,
+      "hybrid_score": 0.3673,
+      "confidence": "Weak match"
+    },
+    {
+      "article_title": "GNNetSlice: A GNN-based performance model to support network slicing in B5G networks",
+      "semantic_score": 0.4704,
+      "token_overlap": 0.2,
+      "bigram_overlap": 0.0,
+      "overlap_score": 0.12,
+      "semantic_weight": 0.65,
+      "overlap_weight": 0.35,
+      "hybrid_score": 0.3478,
+      "confidence": "Low relevance"
+    },
+    {
+      "article_title": "Enhancing network performance in structured geometric network topologies: strategies for quality-of-service optimisation",
+      "semantic_score": 0.4737,
+      "token_overlap": 0.13333333333333333,
+      "bigram_overlap": 0.0,
+      "overlap_score": 0.08,
+      "semantic_weight": 0.65,
+      "overlap_weight": 0.35,
+      "hybrid_score": 0.3359,
+      "confidence": "Low relevance"
+    },
+    {
+      "article_title": "GenNP: A low-threshold and powerful network performance data generator",
+      "semantic_score": 0.4482,
+      "token_overlap": 0.15384615384615385,
+      "bigram_overlap": 0.0,
+      "overlap_score": 0.09230769230769231,
+      "semantic_weight": 0.65,
+      "overlap_weight": 0.35,
+      "hybrid_score": 0.3236,
+      "confidence": "Low relevance"
+    }
+  ],
+  "journal_predictions": [
+    {
+      "journal_name": "Computer Networks",
+      "article_matches": 4,
+      "avg_hybrid_score": 0.5067,
+      "max_hybrid_score": 1.0
+    },
+    {
+      "journal_name": "Computer Communications",
+      "article_matches": 1,
+      "avg_hybrid_score": 0.3478,
+      "max_hybrid_score": 0.3478
+    }
+  ]
+}

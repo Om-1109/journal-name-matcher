@@ -1,0 +1,16 @@
+{
+  "journal_predictions": [
+    {
+      "journal_name": "Computer Networks",
+      "article_matches": 4,
+      "avg_hybrid_score": 0.5067,
+      "max_hybrid_score": 1.0
+    },
+    {
+      "journal_name": "Computer Communications",
+      "article_matches": 1,
+      "avg_hybrid_score": 0.3478,
+      "max_hybrid_score": 0.3478
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "input_title": "Network performance optimization using graph spanners",
+  "phase_1_summary": {
+    "exact_match": false,
+    "normalized_match": false,
+    "exact_matches": [],
+    "normalized_matches": [],
+    "semantic_matches": [
+      {
+        "article_title": "Using spanners to improve network performance",
+        "semantic_score": 0.8152,
+        "token_overlap": 0.5,
+        "bigram_overlap": 0.25,
+        "overlap_score": 0.4,
+        "semantic_weight": 0.5,
+        "overlap_weight": 0.5,
+        "hybrid_score": 0.6076,
+        "confidence": "Probable match"
+      },
+      {
+        "article_title": "Enabling efficient collection and usage of network performance metrics at the edge",
+        "semantic_score": 0.6435,
+        "token_overlap": 0.125,
+        "bigram_overlap": 0.0,
+        "overlap_score": 0.075,
+        "semantic_weight": 0.8,
+        "overlap_weight": 0.2,
+        "hybrid_score": 0.5298,
+        "confidence": "Weak match"
+      },
+      {
+        "article_title": "Enhancing network performance in structured geometric network topologies: strategies for quality-of-service optimisation",
+        "semantic_score": 0.5886,
+        "token_overlap": 0.13333333333333333,
+        "bigram_overlap": 0.07142857142857142,
+        "overlap_score": 0.10857142857142857,
+        "semantic_weight": 0.8,
+        "overlap_weight": 0.2,
+        "hybrid_score": 0.4926,
+        "confidence": "Weak match"
+      },
+      {
+        "article_title": "Computer network optimization using the power metric for multiple flows: Part I",
+        "semantic_score": 0.5335,
+        "token_overlap": 0.2,
+        "bigram_overlap": 0.0,
+        "overlap_score": 0.12,
+        "semantic_weight": 0.8,
+        "overlap_weight": 0.2,
+        "hybrid_score": 0.4508,
+        "confidence": "Weak match"
+      },
+      {
+        "article_title": "GNNetSlice: A GNN-based performance model to support network slicing in B5G networks",
+        "semantic_score": 0.5137,
+        "token_overlap": 0.125,
+        "bigram_overlap": 0.06666666666666667,
+        "overlap_score": 0.10166666666666667,
+        "semantic_weight": 0.8,
+        "overlap_weight": 0.2,
+        "hybrid_score": 0.4313,
+        "confidence": "Weak match"
+      }
+    ],
+    "journal_predictions": [
+      {
+        "journal_name": "Computer Networks",
+        "article_matches": 4,
+        "avg_hybrid_score": 0.5202,
+        "max_hybrid_score": 0.6076,
+        "confidence": "Probable journal match"
+      },
+      {
+        "journal_name": "Computer Communications",
+        "article_matches": 1,
+        "avg_hybrid_score": 0.4313,
+        "max_hybrid_score": 0.4313,
+        "confidence": "Weak journal match"
+      }
+    ]
+  },
+  "phase_2_summary": {
+    "journal_predictions": [
+      {
+        "journal_name": "Computer Networks",
+        "abstract_similarity": 0.75,
+        "confidence": "Medium",
+        "verdict": "Possibly exists"
+      },
+      {
+        "journal_name": "Computer Communications",
+        "abstract_similarity": 0.75,
+        "confidence": "Medium",
+        "verdict": "Possibly exists"
+      }
+    ]
+  },
+  "final_decision": "Undetermined"
+}

@@ -1,5 +1,5 @@
 import json
-from pathlib import Path
+from typing import Dict, List
 from src.phase2.llm_client import call_llm
 
 # -----------------------------------
@@ -43,7 +43,7 @@ def extract_semantics_from_abstract(abstract: str) -> dict:
         return cache[key]
 
     prompt = f"""
-Extract the following information from the research abstract.
+Extract structured information from the abstract.
 
 Return STRICT JSON only.
 

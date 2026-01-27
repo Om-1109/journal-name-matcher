@@ -13,11 +13,19 @@ DATA_PATH = BASE_DIR / "data" / "master_journals.csv"
 
 
 def read_multiline_input():
+<<<<<<< HEAD
     print("(Paste abstract. Type END on a new line to finish)\n")
     lines = []
     while True:
         line = input()
         if line.strip() == "END":
+=======
+    print("(Paste abstract. Press ENTER on empty line to finish)\n")
+    lines = []
+    while True:
+        line = input()
+        if not line.strip():
+>>>>>>> 6fe5dff (Clean project structure and finalize phase 2)
             break
         lines.append(line)
     return "\n".join(lines)
